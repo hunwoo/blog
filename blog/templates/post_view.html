@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title> 게시물 목록</title>
+</head>
+
+<body>
+
+	<div class="post_container">
+		<h3> 제목 - {{ post.title }}</h3>
+		 내용 :</br>
+		 {{post.content}}
+		<form action="{% url 'remove_post' pk=post.pk %}">
+		{%csrf_token%}
+		<p>
+		<button type = submit>글 삭제</button>
+		</p>
+		</form>		
+	</div>
+
+
+	<div class="comment_container">
+		<h3> ========== 댓글 목록 ==========<h3>
+		{% for comment in comments %}
+		<p>{{ comment.pk }} - {{ comment.comment }}
+		<form action="{% url 'remove_comment' pk=comment.pk %}">
+		<button type = submit>글 삭제</button>
+		</form>	</p>
+		{% endfor %}
+	</div>
+
+	<form method="POST" action="{% url 'create_comment' pk=post.pk %}">
+		{%csrf_token%}
+		{{ comment_form.as_p }}
+		<p>
+			<button type="submit">저장</button>
+		</p>
+				<h3><a href="{% url 'list_posts'%}">
+		글 목록으로</a></h3>
+	</form>
+
+</body>
+
+
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title> {{ post.pk }}게시물 목록</title>
+</head>
+
+<body>
+	{% for post in posts %}
+	<div class="post_container">
+		<h3><a href="{% url 'view_post' pk=post.pk%}">
+		{{ post.pk }} - {{ post.title }}</a></h3>
+
+		<div class="post_content">{{ post.content }}</div>
+		{% empty %}
+		<P> 게시물이 없지 </P>
+	</div>
+	{% endfor %}
+</body>
+
+
+</html>
